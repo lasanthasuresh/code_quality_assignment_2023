@@ -49,9 +49,9 @@ def main():
     currency = input(f"Select your currency for final price estimation ({', '.join(exchange_rates_list.keys())}): ")
 
     # To get the totel amount in customer currency we use p
-    p = total * exchange_rates_list[currency]
+    Totel_cost_from_familiar_currency = total * exchange_rates_list[currency]
 
-    print(f"Total in {currency}: {p:.2f}")
+    print(f"Total in {currency}: {Totel_cost_from_familiar_currency:.2f}")
 
 if __name__ == "__main__":
     main()
