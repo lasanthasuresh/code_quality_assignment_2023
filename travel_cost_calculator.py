@@ -1,49 +1,53 @@
+#EG/2020/3922
+
 from csv import *
 
-a = {}
-b = {}
-c = {}
 
-def lhr(file):  
-    with open(file) as h:
-        r = reader(h)
-        for row in r:
-            a[row[0]] = float(row[1])
+HotelRatesData = {}
+ExchangeRatesData = {}
+FlightCostData = {}
 
-def ler(file): 
-    with open(file) as e:
-        r = reader(e)
-        for row in r:
-            b[row[0].upper()] = float(row[1]) * 1 
+#These data stored in hotel_rates.csv, exchange_rates.csv, and flight_costs.csv located in the data folder.
+def hotelRates(file):  
+    with open(file) as hotel:
+        read = reader(hotel)
+        for row in read:
+            HotelRatesData[row[0]] = float(row[1])
 
-def lfr(file):
-    with open(file) as f:
-        r = reader(f)
-        for row in r:
-            c[row[0]] = float(row[1])
+def exchangeRates(file): 
+    with open(file) as exchange:
+        read = reader(exchange)
+        for row in read:
+            ExchangeRatesData[row[0].upper()] = float(row[1]) * 1 
+
+def flightCosts(file):
+    with open(file) as flight:
+        read = reader(flight)
+        for row in read:
+            FlightCostData[row[0]] = float(row[1])
 
 def main():
-    lhr('data/hotel_rates.csv')
-    ler('data/exchange_rates.csv')
-    lfr('data/flight_costs.csv')
+    hotelRates('data/hotel_rates.csv')
+    exchangeRates('data/exchange_rates.csv')
+    flightCosts('data/flight_costs.csv')
 
-    d = input("Enter your destination: ").upper()
+    Destination = input("Enter your destination: ").upper()
 
-    f = c.get(d, 0.0)
-    h = a.get(d, 0.0)
+    flightCost = FlightCostData.get(Destination, 0.0)
+    hotelCost = HotelRatesData.get(Destination, 0.0)
 
     days = int(input("Enter your stay duration in days: "))
-    h *= days
-    total = f + h
+    hotelCost *= days
+    totalCost = flightCost + hotelCost
 
-    print(f"Flight cost: USD {f:.2f}")
-    print(f"Hotel cost for {days} days: USD {h:.2f}")
-    print(f"Total: USD {total:.2f}")
+    print(f"Flight cost: USD {flightCost:.2f}")
+    print(f"Hotel cost for {days} days: USD {hotelCost:.2f}")
+    print(f"Total: USD {totalCost:.2f}")
 
-    currency = input(f"Select your currency for final price estimation ({', '.join(b.keys())}): ")
+    currency = input(f"Select your currency for final price estimation ({', '.join(ExchangeRatesData.keys())}): ")
 
-    p = total * b[currency]
-    print(f"Total in {currency}: {p:.2f}")
+    price = totalCost * ExchangeRatesData[currency]
+    print(f"Total in {currency}: {price:.2f}")
 
 if __name__ == "__main__":
     main()
