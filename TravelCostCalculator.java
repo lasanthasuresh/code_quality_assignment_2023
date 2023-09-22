@@ -1,3 +1,4 @@
+// EG_2020_4254
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,14 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TravelCostCalculator {
+
     static Map<String, Double> a = new HashMap<>();
     static Map<String, Double> b = new HashMap<>();
     static Map<String, Double> c = new HashMap<>();
 
     static void l1(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+
         String i; 
-        while ((i = reader.readLine()) != null) {
+        while ((i=reader.readLine()) != null) {
             String[] p = i.split(",");
             a.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
@@ -21,6 +24,7 @@ public class TravelCostCalculator {
 
     static void l2(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+
         String i;
         while ((i = reader.readLine()) != null) {
             String[] p = i.split(",");
@@ -30,6 +34,7 @@ public class TravelCostCalculator {
 
     static void l3(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+
         String i;
         while ((i = reader.readLine()) != null) {
             String[] p = i.split(",");
@@ -38,6 +43,7 @@ public class TravelCostCalculator {
     }
 
     public static void main(String[] args) {
+
         try {
             l1("data/hotel_rates.csv");
             l2("data/exchange_rates.csv");
@@ -46,29 +52,32 @@ public class TravelCostCalculator {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.print("Enter your destination: ");
-            String destination = reader.readLine().toUpperCase();
 
-            double flight_cost = c.getOrDefault(destination, 0.0);
-            double hotel_cost = a.getOrDefault(destination, 0.0);
+            String destination = reader.readLine().toUpperCase();
+            double flightCost = c.getOrDefault(destination, 0.0);
+            double hotelCost = a.getOrDefault(destination, 0.0);
+           
 
             System.out.print("Enter your stay duration in days: ");
-            int stay_duration = Integer.parseInt(reader.readLine());
-            hotel_cost *= stay_duration;
 
-            double total_cost_usd = flight_cost + hotel_cost;
+            int stayDuration = Integer.parseInt(reader.readLine());
 
-            System.out.printf("Flight cost: USD %.2f\n", flight_cost);
-            System.out.printf("Hotel cost (%d days): USD %.2f\n", stay_duration, hotel_cost);
-            System.out.printf("Total: USD %.2f\n", total_cost_usd);
+            hotelCost *= stayDuration;
 
-            String[] available_currencies = b.keySet().toArray(new String[0]);
-            System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
-            String selected_currency = reader.readLine();
+            double totalCostUsd = flightCost + hotelCost;
+            String[] availableCurrencies = b.keySet().toArray(new String[0]);
+            String selectedCurrency = reader.readLine();
+            double finalPriceLocalCurrency = totalCostUsd * b.get(selectedCurrency);
 
-            double final_price_local_currency = total_cost_usd * b.get(selected_currency);
 
-            System.out.printf("Total in %s: %.2f\n", selected_currency, final_price_local_currency);
-        } catch (IOException e) {
+            System.out.printf("Flight cost: USD %.2f\n", flightCost);
+            System.out.printf("Hotel cost (%d days): USD %.2f\n", stayDuration, hotelCost);
+            System.out.printf("Total: USD %.2f\n", totalCostUsd);
+            System.out.print("Select your currency for final price estimation(" + String.join(", ", availableCurrencies) + "): ");
+            System.out.printf("Total in %s: %.2f\n", selectedCurrency, finalPriceLocalCurrency);
+        } 
+
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
