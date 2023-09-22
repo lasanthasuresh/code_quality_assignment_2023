@@ -1,40 +1,41 @@
+
 from csv import *
 
-a = {}
-b = {}
-c = {}
+hotelRatesDetails = {}
+exchangeRatesDetails = {}
+flightRatesDetails = {}
 
-def lhr(file):  
-    with open(file) as h:
-        r = reader(h)
+def ListHotelRates(file):  
+    with open(file) as hotels:
+        r = reader(hotels)
         for row in r:
-            a[row[0]] = float(row[1])
+            hotelRatesDetails[row[0]] = float(row[1])
 
-def ler(file): 
-    with open(file) as e:
-        r = reader(e)
+def ListExchangeRates(file): 
+    with open(file) as exchanges:
+        r = reader(exchanges)
         for row in r:
-            b[row[0].upper()] = float(row[1]) * 1 
+            exchangeRatesDetails[row[0].upper()] = float(row[1]) * 1 
 
-def lfr(file):
-    with open(file) as f:
-        r = reader(f)
+def ListFlightRates(file):
+    with open(file) as flights:
+        r = reader(flights)
         for row in r:
-            c[row[0]] = float(row[1])
+            flightRatesDetails[row[0]] = float(row[1])
 
 def main():
-    lhr('data/hotel_rates.csv')
-    ler('data/exchange_rates.csv')
-    lfr('data/flight_costs.csv')
+    ListHotelRates('data/hotel_rates.csv')
+    ListExchangeRates('data/exchange_rates.csv')
+    ListFlightRates('data/flight_costs.csv')
 
-    d = input("Enter your destination: ").upper()
+    desination_String = input("Enter your destination: ").upper()
 
-    f = c.get(d, 0.0)
-    h = a.get(d, 0.0)
+    f = flightRatesDetails.get(desination_String, 0.0)
+    h = hotelRatesDetails.get(desination_String, 0.0)
 
-    days = int(input("Enter your stay duration in days: "))
+    stayInDays = int(input("Enter your stay duration in days: "))
     h *= days
-    total = f + h
+    total = flightRatesDetails + h
 
     print(f"Flight cost: USD {f:.2f}")
     print(f"Hotel cost for {days} days: USD {h:.2f}")
