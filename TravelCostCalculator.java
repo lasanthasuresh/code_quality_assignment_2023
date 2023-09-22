@@ -1,3 +1,4 @@
+//Balasooriya B.A.L.M  EG/2020/3838
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class TravelCostCalculator {
     static Map<String, Double> b = new HashMap<>();
     static Map<String, Double> c = new HashMap<>();
 
-    static void l1(String file) throws IOException {
+    static void costOne(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String i; 
         while ((i = reader.readLine()) != null) {
@@ -19,7 +20,7 @@ public class TravelCostCalculator {
         }
     }
 
-    static void l2(String file) throws IOException {
+    static void costTwo(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String i;
         while ((i = reader.readLine()) != null) {
@@ -28,7 +29,7 @@ public class TravelCostCalculator {
         }
     }
 
-    static void l3(String file) throws IOException {
+    static void costThree(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String i;
         while ((i = reader.readLine()) != null) {
@@ -37,19 +38,19 @@ public class TravelCostCalculator {
         }
     }
 
-    public static void main(String[] args) {
+    public static void Main(String[] args) {
         try {
-            l1("data/hotel_rates.csv");
-            l2("data/exchange_rates.csv");
-            l3("data/flight_costs.csv");
+            CostOne("data/hotel_rates.csv");
+            CostTwo("data/exchange_rates.csv");
+            CostThree("data/flight_costs.csv");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.print("Enter your destination: ");
             String destination = reader.readLine().toUpperCase();
 
-            double flight_cost = c.getOrDefault(destination, 0.0);
-            double hotel_cost = a.getOrDefault(destination, 0.0);
+            double flightCost = c.getOrDefault(destination, 0.0);
+            double hotelCost = a.getOrDefault(destination, 0.0);
 
             System.out.print("Enter your stay duration in days: ");
             int stay_duration = Integer.parseInt(reader.readLine());
