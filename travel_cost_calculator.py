@@ -4,40 +4,40 @@ a = {}
 b = {}
 c = {}
 
-def lhr(file):  
-    with open(file) as h:
-        r = reader(h)
+def l_hotel_rates(file):  
+    with open(file) as hotel:
+        r = reader(hotel)
         for row in r:
             a[row[0]] = float(row[1])
 
-def ler(file): 
-    with open(file) as e:
-        r = reader(e)
+def l_exchange_rates(file): 
+    with open(file) as exchange_rate:
+        r = reader(exchange_rate)
         for row in r:
             b[row[0].upper()] = float(row[1]) * 1 
 
-def lfr(file):
-    with open(file) as f:
-        r = reader(f)
+def l_flight_costs(file):
+    with open(file) as flight:
+        r = reader(flight)
         for row in r:
             c[row[0]] = float(row[1])
 
 def main():
-    lhr('data/hotel_rates.csv')
-    ler('data/exchange_rates.csv')
-    lfr('data/flight_costs.csv')
+    l_hotel_rates('data/hotel_rates.csv')
+    l_exchange_rates('data/exchange_rates.csv')
+    l_flight_costs('data/flight_costs.csv')
 
-    d = input("Enter your destination: ").upper()
+    destination = input("Enter your destination: ").upper()
 
-    f = c.get(d, 0.0)
-    h = a.get(d, 0.0)
+    flight = c.get(destination, 0.0)
+    hotel = a.get(destination, 0.0)
 
-    days = int(input("Enter your stay duration in days: "))
-    h *= days
-    total = f + h
+    int days = input("Enter your stay duration in days: ")
+    hotel *= days
+    total = flight + hotel
 
-    print(f"Flight cost: USD {f:.2f}")
-    print(f"Hotel cost for {days} days: USD {h:.2f}")
+    print(f"Flight cost: USD {flight:.2f}")
+    print(f"Hotel cost for {days} days: USD {hotel:.2f}")
     print(f"Total: USD {total:.2f}")
 
     currency = input(f"Select your currency for final price estimation ({', '.join(b.keys())}): ")
