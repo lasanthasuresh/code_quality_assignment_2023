@@ -1,46 +1,53 @@
+#EG/2020/4340 Piyankara n w m g p
+
 from csv import *
 
-a = {}
-b = {}
-c = {}
 
-def lhr(file):  
-    with open(file) as h:
-        r = reader(h)
+user_a = {}
+user_b = {}
+user_c = {}
+
+#function of hotel rates
+def hotelRates(file):  
+    with open(file) as hotel:
+        r = reader(hotel)
         for row in r:
-            a[row[0]] = float(row[1])
+            user_a[row[0]] = float(row[1])
 
-def ler(file): 
-    with open(file) as e:
-        r = reader(e)
+#function of exchange rates
+def exchangeRates(file): 
+    with open(file) as exchange:
+        r = reader(exchange)
         for row in r:
-            b[row[0].upper()] = float(row[1]) * 1 
+            user_b[row[0].upper()] = float(row[1]) * 1 
 
-def lfr(file):
-    with open(file) as f:
-        r = reader(f)
+#function of flight rates
+def flightRates(file):
+    with open(file) as flight:
+        r = reader(flight)
         for row in r:
-            c[row[0]] = float(row[1])
+            user_c[row[0]] = float(row[1])
 
+#function of main
 def main():
-    lhr('data/hotel_rates.csv')
-    ler('data/exchange_rates.csv')
-    lfr('data/flight_costs.csv')
+    hotelRates('data/hotel_rates.csv')
+    exchangeRates('data/exchange_rates.csv')
+    flightRates('data/flight_costs.csv')
 
-    d = input("Enter your destination: ").upper()
+    destination = input("Enter your destination: ").upper() #input of user destination
 
-    f = c.get(d, 0.0)
-    h = a.get(d, 0.0)
+    f = user_c.get(destination, 0.0)
+    h = user_a.get(destination, 0.0)
 
-    days = int(input("Enter your stay duration in days: "))
+    days = int(input("Enter your stay duration in days: ")) #input of user stay duration
     h *= days
     total = f + h
 
-    print(f"Flight cost: USD {f:.2f}")
+    print(f"Flight cost: USD {f:.2f}") #printflight cost
     print(f"Hotel cost for {days} days: USD {h:.2f}")
     print(f"Total: USD {total:.2f}")
 
-    currency = input(f"Select your currency for final price estimation ({', '.join(b.keys())}): ")
+    currency = input(f"Select your currency for final price estimation ({', '.join(user_b.keys())}): ")
 
     p = total * b[currency]
     print(f"Total in {currency}: {p:.2f}")
