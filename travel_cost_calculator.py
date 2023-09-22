@@ -24,26 +24,27 @@ def ListFlightRates(file):
             flightRatesDetails[row[0]] = float(row[1])
 
 def main():
+
     ListHotelRates('data/hotel_rates.csv')
     ListExchangeRates('data/exchange_rates.csv')
     ListFlightRates('data/flight_costs.csv')
 
     desination_String = input("Enter your destination: ").upper()
 
-    f = flightRatesDetails.get(desination_String, 0.0)
-    h = hotelRatesDetails.get(desination_String, 0.0)
+    flightCost = flightRatesDetails.get(desination_String, 0.0)
+    hotelCost = hotelRatesDetails.get(desination_String, 0.0)
 
     stayInDays = int(input("Enter your stay duration in days: "))
-    h *= days
-    total = flightRatesDetails + h
+    hotelCost *= stayInDays
+    total = flightRatesDetails + hotelCost
 
     print(f"Flight cost: USD {f:.2f}")
-    print(f"Hotel cost for {days} days: USD {h:.2f}")
+    print(f"Hotel cost for {stayInDays} days: USD {h:.2f}")
     print(f"Total: USD {total:.2f}")
 
-    currency = input(f"Select your currency for final price estimation ({', '.join(b.keys())}): ")
+    currency = input(f"Select your currency for final price estimation ({', '.join(exchangeRatesDetails.keys())}): ")
 
-    p = total * b[currency]
+    p = total * exchangeRatesDetails[currency]
     print(f"Total in {currency}: {p:.2f}")
 
 if __name__ == "__main__":
