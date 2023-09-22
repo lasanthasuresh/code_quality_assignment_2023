@@ -1,3 +1,8 @@
+"""
+EG/2020/4289
+Wijebandara P.A.I
+Calculator for a shop
+"""
 import csv
 
 discnts = {}
@@ -6,41 +11,47 @@ prmtns = {}
 curr_rates = {}
 invntry = {}
 
-def ld_discnts(file):
-    with open(file) as dscnt_file:
-        r = csv.reader(dscnt_file)
-        for rw in r:
-            discnts[rw[0].upper()] = float(rw[1])
+def ld_discounts(file):
+    """give discounts """
+    with open(file) as discount_file:
+        readable_file = csv.reader(discount_file)
+        for word in readable_file:
+            discnts[word[0].upper()] = float(word[1])
 
 def ld_taxes(file):
+    """show taxes"""
     with open(file) as tax_file:
-        r = csv.reader(tax_file)
-        for rw in r:
-            taxes[rw[0].upper()] = float(rw[1])
+        readable_file = csv.reader(tax_file)
+        for word in readable_file:
+            taxes[word[0].upper()] = float(word[1])
 
-def ld_prmtns(file):
+def ld_promotions(file):
+    """show promotions"""
     with open(file) as prmtn_file:
-        r = csv.reader(prmtn_file)
-        for rw in r:
-            prmtns[rw[0]] = float(rw[1])
+        readerble_file = csv.reader(prmtn_file)
+        for words in readerble_file:
+            prmtns[words[0]] = float(words[1])
 
 def ld_curr_rates(file):
+    """current rates"""
     with open(file) as currency_file:
-        r = csv.reader(currency_file)
-        for rw in r:
+        _r = csv.reader(currency_file)
+        for rw in _r:
             curr_rates[rw[0].upper()] = float(rw[1])
 
 def ld_invntry(file):
+    """show inventory"""
     with open(file) as inv_file:
-        r = csv.reader(inv_file)
-        for rw in r:
+        readerble_file = csv.reader(inv_file)
+        for rw in readerble_file:
             invntry[rw[0].upper()] = int(rw[1])
 
 def main():
+    """ calling the above methods to main """
 
-    ld_discnts('data/discounts.csv')
+    ld_discounts('data/discounts.csv')
     ld_taxes('data/tax_rates.csv')
-    ld_prmtns('data/promotions.csv')
+    ld_promotions('data/promotions.csv')
     ld_curr_rates('data/currency_rates.csv')
     ld_invntry('data/inventory.csv')
 
@@ -87,7 +98,8 @@ def main():
     print(f"Total: USD {final_price_usd:.2f}")
 
     available_currencies = list(curr_rates.keys())
-    selected_currency = input("Select currency for payment ({}): ".format(', '.join(available_currencies)))
+    selected_currency = input("Select currency for payment ({}): "
+                              .format(', '.join(available_currencies)))
 
     final_price_currency = final_price_usd * curr_rates.get(selected_currency)
 
