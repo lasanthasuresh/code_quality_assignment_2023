@@ -21,7 +21,7 @@ public class TravelCostCalculator {
         }
     }
 
-    static void retrieveExchnagerates(String file) throws IOException {
+    static void retrieveExchnageRates(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String i;
         while ((i = reader.readLine()) != null) {
@@ -42,7 +42,7 @@ public class TravelCostCalculator {
     public static void main(String[] args) {
         try {
             retrieveHotelRates("data/hotel_rates.csv");
-            retrieveExchnagerates("data/exchange_rates.csv");
+            retrieveExchnageRates("data/exchange_rates.csv");
             retrieveFlightCosts("data/flight_costs.csv");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
