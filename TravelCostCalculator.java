@@ -1,3 +1,4 @@
+// EG_2020_4355  Harintharan N.
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,32 +7,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TravelCostCalculator {
-    static Map<String, Double> a = new HashMap<>();
-    static Map<String, Double> b = new HashMap<>();
-    static Map<String, Double> c = new HashMap<>();
+    static Map<String, Double> hotelRates  = new HashMap<>();
+    static Map<String, Double> exchangeRates = new HashMap<>();
+    static Map<String, Double> flightCosts = new HashMap<>();
 
-    static void l1(String file) throws IOException {
+    static void loadHotelRates(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i; 
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
+        String line; 
+        while ((line = reader.readLine()) != null) {
+            String[] p = line.split(",");
             a.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
     }
 
-    static void l2(String file) throws IOException {
+    static void loadExchangeRates(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] p = line.split(",");
             b.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
     }
 
-    static void l3(String file) throws IOException {
+    static void loadFlightcosts(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i;
-        while ((i = reader.readLine()) != null) {
+        String line;
+        while ((line = reader.readLine()) != null) {
             String[] p = i.split(",");
             c.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
@@ -39,9 +40,10 @@ public class TravelCostCalculator {
 
     public static void main(String[] args) {
         try {
-            l1("data/hotel_rates.csv");
-            l2("data/exchange_rates.csv");
-            l3("data/flight_costs.csv");
+            loadHotelRates("data/hotel_rates.csv");
+            loadExchangeRates("data/exchange_rates.csv");
+            loadFlightcosts("data/flight_costs.csv");
+            
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
