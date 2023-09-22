@@ -64,7 +64,7 @@ public class TravelCostCalculator {
             System.out.printf("Total: USD %.2f\n", totalCostUsd);
 
             String[] availableCurrencies = b.keySet().toArray(new String[0]);
-            System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
+            System.out.print("Select your currency for final price estimation(" + String.join(", ", availableCurrencies) + "): ");
             String selectedCurrency = reader.readLine();
 
             double finalPriceLocalCurrency = totalCostUsd * b.get(selectedCurrency);
@@ -73,6 +73,6 @@ public class TravelCostCalculator {
         } 
             catch (IOException e) {
             e.printStackTrace();
-        }
+            }
     }
 }
