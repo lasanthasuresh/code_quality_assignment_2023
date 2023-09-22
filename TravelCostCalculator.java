@@ -56,17 +56,17 @@ public class TravelCostCalculator {
                 int stayDuration = Integer.parseInt(reader.readLine());
                 hotelCost *= stayDuration;
 
-                double total_cost_usd = flightCost + hotelCost;
+                double totalCostUSD = flightCost + hotelCost;
 
                 System.out.printf("Flight cost: USD %.2f\n", flightCost);
                 System.out.printf("Hotel cost (%d days): USD %.2f\n", stayDuration, hotelCost);
-                System.out.printf("Total: USD %.2f\n", total_cost_usd);
+                System.out.printf("Total: USD %.2f\n", totalCostUSD);
 
                 String[] availableCurrencies = b.keySet().toArray(new String[0]);
                 System.out.print("Select your currency for final price estimation(" + String.join(", ", availableCurrencies) + "): ");
                 String selectedCurrency = reader.readLine();
 
-                double finalPriceLocalCurrency = total_cost_usd * mapTwo.get(selectedCurrency);
+                double finalPriceLocalCurrency = totalCostUSD * mapTwo.get(selectedCurrency);
 
                 System.out.printf("Total in %s: %.2f\n", selectedCurrency, finalPriceLocalCurrency);
 
