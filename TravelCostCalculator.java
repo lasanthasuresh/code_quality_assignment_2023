@@ -11,38 +11,20 @@ public class TravelCostCalculator {
     static Map<String, Double> exchangeRates = new HashMap<>();
     static Map<String, Double> flightCosts = new HashMap<>();
 
-    static void readCsvFile(String file) throws IOException {
+    static void readCsvFile(String file, HashMap<String, Double> hashMap) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line; 
         while ((line = reader.readLine()) != null) {
             String[] stringArray = line.split(",");
-            hotelRates.put(stringArray[0].toUpperCase(), Double.parseDouble(stringArray[1]));
-        }
-    }
-
-    static void l2(String file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            exchangeRates.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
-        }
-    }
-
-    static void l3(String file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            c.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+            hashMap.put(stringArray[0].toUpperCase(), Double.parseDouble(stringArray[1]));
         }
     }
 
     public static void main(String[] args) {
         try {
-            readCsvFile("data/hotel_rates.csv");
-            l2("data/exchange_rates.csv");
-            l3("data/flight_costs.csv");
+            readCsvFile("data/hotel_rates.csv", hotelRates);
+            readCsvFile("data/exchange_rates.csv", exchangeRates);
+            readCsvFile("data/flight_costs.csv", flightCosts);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
