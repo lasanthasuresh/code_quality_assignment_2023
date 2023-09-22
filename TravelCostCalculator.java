@@ -1,3 +1,5 @@
+//Sulaiman M.N. 
+//EG.2020.4342
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,61 +7,67 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TravelCostCalculator {
+public class TravelCostCalculator { //making 3 maps to get inputs
     static Map<String, Double> a = new HashMap<>();
     static Map<String, Double> b = new HashMap<>();
     static Map<String, Double> c = new HashMap<>();
 
-    static void l1(String file) throws IOException {
+    static void HotelRates(String file) throws IOException { 
+        //function to calculate hotel rates
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i; 
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            a.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+        String input1; 
+        while ((input1 = reader.readLine()) != null) {
+            String[] p = i.split(","); //converting the single word into seperate letters
+            a.put(p[0].toUpperCase(), Double.parseDouble(p[1]));//Converting all the letters to capital letters and pushing to the map
+        }
         }
     }
 
-    static void l2(String file) throws IOException {
+    static void ExchangeRates(String file) throws IOException {
+        //function to calculate exchange rates
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String i;
         while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            b.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+            String[] p = i.split(",");//converting the single word into seperate letters
+            b.put(p[0].toUpperCase(), Double.parseDouble(p[1]));//Converting all the letters to capital letters
         }
     }
 
-    static void l3(String file) throws IOException {
+    static void FlightCosts(String file) throws IOException {
+        //function to calculate fligtcosts
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String i;
         while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            c.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+            String[] p = i.split(",");//converting the single word into seperate letters
+            c.put(p[0].toUpperCase(), Double.parseDouble(p[1])); //Converting all the letters to capital letters
+        }
         }
     }
 
     public static void main(String[] args) {
+        //doing exception handling to avoid unwanted inputs 
         try {
-            l1("data/hotel_rates.csv");
-            l2("data/exchange_rates.csv");
-            l3("data/flight_costs.csv");
+            HotelRates("data/hotel_rates.csv");
+            ExchangeRates("data/exchange_rates.csv");
+            FlightCosts("data/flight_costs.csv");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.print("Enter your destination: ");
-            String destination = reader.readLine().toUpperCase();
+            String destination = reader.readLine().toUpperCase(); //getting the destination input and converting to capital letters
 
-            double flight_cost = c.getOrDefault(destination, 0.0);
-            double hotel_cost = a.getOrDefault(destination, 0.0);
+            double flightCost = c.getOrDefault(destination, 0.0);
+            double hotelCost = a.getOrDefault(destination, 0.0);
 
             System.out.print("Enter your stay duration in days: ");
             int stay_duration = Integer.parseInt(reader.readLine());
-            hotel_cost *= stay_duration;
+            hotelCost *= stay_duration;
 
-            double total_cost_usd = flight_cost + hotel_cost;
+            double totalCostUsd = flightCost + hotelCost; //calculating the total cost
 
-            System.out.printf("Flight cost: USD %.2f\n", flight_cost);
-            System.out.printf("Hotel cost (%d days): USD %.2f\n", stay_duration, hotel_cost);
-            System.out.printf("Total: USD %.2f\n", total_cost_usd);
+            System.out.printf("Flight cost: USD %.2f\n", flightCost);
+            System.out.printf("Hotel cost (%d days): USD %.2f\n", stay_duration, hotelCost);
+            System.out.printf("Total: USD %.2f\n", totalCostUsd);
 
             String[] available_currencies = b.keySet().toArray(new String[0]);
             System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
