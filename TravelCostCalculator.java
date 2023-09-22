@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class TravelCostCalculator {
     static Map<String, Double> a = new HashMap<>();
     static Map<String, Double> b = new HashMap<>();
