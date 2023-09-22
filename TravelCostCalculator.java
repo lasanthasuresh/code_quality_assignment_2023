@@ -49,8 +49,8 @@ public class TravelCostCalculator {
                 System.out.print("Enter your destination: ");
                 String destination = reader.readLine().toUpperCase();
 
-                double flightCost = c.getOrDefault(destination, 0.0);
-                double hotelCost = a.getOrDefault(destination, 0.0);
+                double flightCost = mapThree.getOrDefault(destination, 0.0);
+                double hotelCost = mapOne.getOrDefault(destination, 0.0);
 
                 System.out.print("Enter your stay duration in days: ");
                 int stayDuration = Integer.parseInt(reader.readLine());
@@ -66,13 +66,13 @@ public class TravelCostCalculator {
                 System.out.print("Select your currency for final price estimation(" + String.join(", ", availableCurrencies) + "): ");
                 String selectedCurrency = reader.readLine();
 
-                double finalPriceLocalCurrency = total_cost_usd * b.get(selectedCurrency);
+                double finalPriceLocalCurrency = total_cost_usd * mapTwo.get(selectedCurrency);
 
                 System.out.printf("Total in %s: %.2f\n", selectedCurrency, finalPriceLocalCurrency);
 
             } 
-            catch (IOException e) {
-                e.printStackTrace();
+            catch (IOException exception) {
+                exception.printStackTrace();
             }
     }
 }
