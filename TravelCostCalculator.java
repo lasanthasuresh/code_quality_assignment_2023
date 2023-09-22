@@ -1,4 +1,5 @@
-//Balasooriya B.A.L.M  EG/2020/3838
+//  Balasooriya B.A.L.M.  
+//  EG/2020/3838
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -66,10 +67,11 @@ public class TravelCostCalculator {
             System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
             String selectedCurrency = reader.readLine();
 
-            double finalPriceLocalCurrency = total_cost_usd * b.get(selected_currency);
+            double finalPriceLocalCurrency = totalCostUsd * b.get(selectedCurrency);
 
-            System.out.printf("Total in %s: %.2f\n", selected_currency, final_price_local_currency);
-        } catch (IOException e) {
+            System.out.printf("Total in %s: %.2f\n", selectedCurrency, finalPriceLocalCurrency);
+        } 
+            catch (IOException e) {
             e.printStackTrace();
         }
     }
