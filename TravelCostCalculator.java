@@ -1,3 +1,4 @@
+// EG/2020/3976 janugopan s
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,33 +42,33 @@ public class TravelCostCalculator {
         try {
             l1("data/hotel_rates.csv");
             l2("data/exchange_rates.csv");
-            l3("data/flight_costs.csv");
+            l3("data/flightCosts.csv");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.print("Enter your destination: ");
             String destination = reader.readLine().toUpperCase();
 
-            double flight_cost = c.getOrDefault(destination, 0.0);
-            double hotel_cost = a.getOrDefault(destination, 0.0);
+            double flightCost = c.getOrDefault(destination, 0.0);
+            double hotelCost = a.getOrDefault(destination, 0.0);
 
             System.out.print("Enter your stay duration in days: ");
-            int stay_duration = Integer.parseInt(reader.readLine());
-            hotel_cost *= stay_duration;
+            int stayDuration = Integer.parseInt(reader.readLine());
+            hotelCost *= stayDuration;
 
-            double total_cost_usd = flight_cost + hotel_cost;
+            double total_cost_usd = flightCost + hotelCost;
 
-            System.out.printf("Flight cost: USD %.2f\n", flight_cost);
-            System.out.printf("Hotel cost (%d days): USD %.2f\n", stay_duration, hotel_cost);
+            System.out.printf("Flight cost: USD %.2f\n", flightCost);
+            System.out.printf("Hotel cost (%d days): USD %.2f\n", stayDuration, hotelCost);
             System.out.printf("Total: USD %.2f\n", total_cost_usd);
 
-            String[] available_currencies = b.keySet().toArray(new String[0]);
-            System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
-            String selected_currency = reader.readLine();
+            String[] availableCurrencies = b.keySet().toArray(new String[0]);
+            System.out.print("Select your currency for final price estimation(" + String.join(", ", availableCurrencies) + "): ");
+            String selectedCurrency = reader.readLine();
 
-            double final_price_local_currency = total_cost_usd * b.get(selected_currency);
+            double finalPriceLocalCurrency = total_cost_usd * b.get(selectedCurrency);
 
-            System.out.printf("Total in %s: %.2f\n", selected_currency, final_price_local_currency);
+            System.out.printf("Total in %s: %.2f\n", selectedCurrency, finalPriceLocalCurrency);
         } catch (IOException e) {
             e.printStackTrace();
         }
