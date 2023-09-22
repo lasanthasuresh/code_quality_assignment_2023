@@ -1,4 +1,5 @@
 //EG_2020_4113
+//PERERA K.R.D
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+// This will calculate the Total cost of the travel.
 public class TravelCostCalculator {
     static Map<String, Double> hotelRates = new HashMap<>();
     static Map<String, Double> exchangeRates = new HashMap<>();
@@ -46,6 +48,7 @@ public class TravelCostCalculator {
 
     public static void main(String[] args) {
         try {
+            //datafiles
             hotelRateList("data/hotel_rates.csv");
             exchangeRateList("data/exchange_rates.csv");
             flightCostList("data/flight_costs.csv");
@@ -70,7 +73,7 @@ public class TravelCostCalculator {
 
             String[] available_currencies = exchangeRates.keySet().toArray(new String[0]);
             System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
-            
+
             String selected_currency = reader.readLine();
             double final_price_local_currency = total_cost_usd * exchangeRates.get(selected_currency);
             System.out.printf("Total in %s: %.2f\n", selected_currency, final_price_local_currency);
