@@ -4,71 +4,107 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+//EG/2020/4252
+public class TravelCostCalculator 
+{
+    static Map<String, Double> hotelRates = new HashMap<>();
+    static Map<String, Double> exchangeRates = new HashMap<>();
+    static Map<String, Double> flightCosts = new HashMap<>();
 
-public class TravelCostCalculator {
-    static Map<String, Double> a = new HashMap<>();
-    static Map<String, Double> b = new HashMap<>();
-    static Map<String, Double> c = new HashMap<>();
-
-    static void l1(String file) throws IOException {
+    static void getHotelRatesData(String file) throws IOException
+     {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+
         String i; 
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            a.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+        while ((i = reader.readLine()) != null) 
+        {
+            String[] dataSet = i.split(",");
+            hotelRates.put(dataSet[0].toUpperCase(), Double.parseDouble(dataSet[1]));
         }
     }
 
-    static void l2(String file) throws IOException {
+    static void getExchangeRatesData(String file) throws IOException 
+    {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+
         String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            b.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+        while ((i = reader.readLine()) != null) 
+        {
+            String[] dataSet = i.split(",");
+            exchangeRates.put(dataSet[0].toUpperCase(), Double.parseDouble(dataSet[1]));
         }
     }
 
-    static void l3(String file) throws IOException {
+    static void getFlightCostsData(String file) throws IOException 
+    {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+        
         String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
-            c.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
+        while ((i = reader.readLine()) != null) 
+        {
+            String[] dataSet = i.split(",");
+            flightCosts.put(dataSet[0].toUpperCase(), Double.parseDouble(dataSet[1]));
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            l1("data/hotel_rates.csv");
-            l2("data/exchange_rates.csv");
-            l3("data/flight_costs.csv");
+    static double getTotalCost(double flightCost, double hotelCost,int stayDuration)
+    {
+
+             hotelCost *= stayDuration;
+            double total_cost_usd = flightCost + hotelCost;
+
+            return total_cost_usd;
+
+    }
+
+    static double getFinalPrice(double totalCost,double currencyValue )
+    {
+
+         double final_price_local_currency = totalCost * currencyValue;
+         return final_price_local_currency;
+    }
+
+
+
+
+    public static void main(String[] args) 
+    {
+        try
+         {
+            getHotelRatesData("data/hotel_rates.csv");
+            getExchangeRatesData("data/exchange_rates.csv");
+            getFlightCostsData("data/flight_costs.csv");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.print("Enter your destination: ");
             String destination = reader.readLine().toUpperCase();
 
-            double flight_cost = c.getOrDefault(destination, 0.0);
-            double hotel_cost = a.getOrDefault(destination, 0.0);
+            double flight_cost = flightCosts.getOrDefault(destination, 0.0);
+            double hotel_cost = hotelRates.getOrDefault(destination, 0.0);
 
             System.out.print("Enter your stay duration in days: ");
             int stay_duration = Integer.parseInt(reader.readLine());
-            hotel_cost *= stay_duration;
 
-            double total_cost_usd = flight_cost + hotel_cost;
+            double totalCost =getTotalCost();
 
             System.out.printf("Flight cost: USD %.2f\n", flight_cost);
             System.out.printf("Hotel cost (%d days): USD %.2f\n", stay_duration, hotel_cost);
-            System.out.printf("Total: USD %.2f\n", total_cost_usd);
+            System.out.printf("Total: USD %.2f\n", totalCost);
 
-            String[] available_currencies = b.keySet().toArray(new String[0]);
+            String[] available_currencies = exchangeRates.keySet().toArray(new String[0]);
             System.out.print("Select your currency for final price estimation(" + String.join(", ", available_currencies) + "): ");
             String selected_currency = reader.readLine();
 
-            double final_price_local_currency = total_cost_usd * b.get(selected_currency);
 
-            System.out.printf("Total in %s: %.2f\n", selected_currency, final_price_local_currency);
-        } catch (IOException e) {
+            double currencyValue =exchangeRates.get(selected_currency);
+            
+            double finalPrice=getFinalPrice(totalCost,currencyValue);
+
+            System.out.printf("Total in %s: %.2f\n", selected_currency, finalPrice);
+        } 
+        catch (IOException e) 
+        {
             e.printStackTrace();
         }
     }
