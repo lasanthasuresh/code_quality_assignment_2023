@@ -4,7 +4,7 @@ a = {}
 b = {}
 c = {}
 
-def lhr(file):  
+def lhr(file):  //defining a function 
     with open(file) as h:
         r = reader(h)
         for row in r:
