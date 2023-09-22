@@ -1,3 +1,4 @@
+//EG/2020/3882
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,27 +13,27 @@ public class TravelCostCalculator {
 
     static void HotelRates(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i; 
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
+        String str; 
+        while ((str = reader.readLine()) != null) {
+            String[] p = str.split(",");
             hotelCost.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
     }
 
     static void ExchangeRates(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
+        String str;
+        while ((str = reader.readLine()) != null) {
+            String[] p = str.split(",");
             availableCurrencies.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
     }
 
     static void FlightCost(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String i;
-        while ((i = reader.readLine()) != null) {
-            String[] p = i.split(",");
+        String str;
+        while ((str = reader.readLine()) != null) {
+            String[] p = str.split(",");
             flightCost.put(p[0].toUpperCase(), Double.parseDouble(p[1]));
         }
     }
